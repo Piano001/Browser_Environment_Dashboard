@@ -1,59 +1,82 @@
-<!-- Karl Piano -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Student Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f2f2f2;
-        }
-        h1 {
-            color: #333;
-        }
-        .profile {
-            background-color: #fff;
-            padding: 20px;
-            border-left: 5px solid #4CAF50;
-            margin-bottom: 30px;
-        }
-        .links a {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            margin: 10px 10px 10px 0;
-            border-radius: 25px;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-        .links a:hover {
-            background-color: #45a049;
-        }
-    </style>
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+      background-color: #add8e6; /* Light Blue */
+      transition: background-color 0.5s ease;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+
+    .win {
+      color: green;
+      font-weight: bold;
+    }
+
+    .lose {
+      color: red;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      border: 2px solid #ccc;
+      border-radius: 25px; /* Oval shape */
+      width: 200px; /* Shorter input */
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 8px #4CAF50;
+    }
+
+    input[type="text"]:hover {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px; /* Oval shape */
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+
+    #restartBtn {
+      display: none;
+    }
+  </style>
 </head>
 <body>
+  <h1>Word Guessing Game(Fruits Only)</h1>
+  <p>Guess the secret word! You have 5 attempts.</p>
+  <input type="text" id="guessInput" placeholder="Enter your guess..." />
+  <button onclick="submitGuess()">Submit</button>
+  <div id="message"></div>
+  <button id="restartBtn" onclick="restartGame()">Restart Game</button>
 
-    <div class="profile">
-        <h1>Student Profile</h1>
-        <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
-        <p><strong>Sex:</strong> Male</p>
-        <p><strong>Address:</strong> Barangay 1 mabini Garchitorena, Cam. Sur</p>
-        <p><strong>Course, Year, Section:</strong> BSIT 2B</p>
-        <p><strong>Name of School:</strong> Partido State University</p>
-        <p><strong>Semester & Academic Year:</strong> 2nd Sem, AY 2024-2025</p>
-        <p><strong>Subject Code & Title:</strong> PF2 - event Driven programming</p>
-        <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
-    </div>
-
-    <div class="links">
-        <a href="GuessThegame.html">1. Guess the Secret Word Game</a>
-        <a href="browser_dashboard.html">2. Browser Environment Dashboard</a>
-    </div>
-
+  <script src="script.js"></script>
 </body>
 </html>
