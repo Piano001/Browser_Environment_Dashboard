@@ -10,7 +10,7 @@ It also dynamically changes the background based on screen size.
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Build a Browser Information & Control Panel using JaavaScript Browser Objects</title>
+  <title>Build a Browser Information & Control Panel using JavaScript Browser Objects</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -46,6 +46,27 @@ It also dynamically changes the background based on screen size.
       margin-top: 10px;
       padding: 6px 12px;
     }
+
+   
+    @media (max-width: 599px) {
+      body {
+        background-color: lightblue;
+      }
+    }
+
+   
+    @media (min-width: 600px) and (max-width: 991px) {
+      body {
+        background-color: lightgreen;
+      }
+    }
+
+    
+    @media (min-width: 992px) {
+      body {
+        background-color: orange;
+      }
+    }
   </style>
 </head>
 <body>
@@ -53,14 +74,14 @@ It also dynamically changes the background based on screen size.
   <!-- Part 0: Profile Info -->
   <header>
     <h1>Student Profile</h1>
-        <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
-        <p><strong>Sex:</strong> Male</p>
-        <p><strong>Address:</strong> Barangay 1 mabini Garchitorena, Cam. Sur</p>
-        <p><strong>Course, Year, Section:</strong> BSIT 2B</p>
-        <p><strong>Name of School:</strong> Partido State University</p>
-        <p><strong>Semester & Academic Year:</strong> 2nd Sem, AY 2024-2025</p>
-        <p><strong>Subject Code & Title:</strong> PF2 - event Driven programming</p>
-        <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
+    <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
+    <p><strong>Sex:</strong> Male</p>
+    <p><strong>Address:</strong> Barangay 1 mabini Garchitorena, Cam. Sur</p>
+    <p><strong>Course, Year, Section:</strong> BSIT 2B</p>
+    <p><strong>Name of School:</strong> Partido State University</p>
+    <p><strong>Semester & Academic Year:</strong> 2nd Sem, AY 2024-2025</p>
+    <p><strong>Subject Code & Title:</strong> PF2 - Event Driven Programming</p>
+    <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
   </header>
 
   <!-- Part A: Browser Information -->
@@ -83,7 +104,7 @@ It also dynamically changes the background based on screen size.
     <h2>Navigation Controls</h2>
     <button onclick="location.reload()">Reload Page</button>
     <button onclick="redirect()">Go to Example.com</button>
-    <button onclick="history.forward()">Go Back</button>
+    <button onclick="history.back()">Go Back</button>
     <button onclick="history.forward()">Go Forward</button>
   </section>
 
@@ -118,15 +139,15 @@ It also dynamically changes the background based on screen size.
       window.location.href = "https://www.example.com";
     }
 
-    // Part D: Dynamic Styling
+    // Part D: JavaScript-based dynamic styling (optional fallback or for added control)
     function updateBackgroundColor() {
       const width = window.innerWidth;
       if (width < 600) {
         document.body.style.backgroundColor = 'lightblue';
       } else if (width < 992) {
-        document.body.style.backgroundColor = 'lightgreen'; 
+        document.body.style.backgroundColor = 'lightgreen';
       } else {
-        document.body.style.backgroundColor = 'orange'; 
+        document.body.style.backgroundColor = 'orange';
       }
     }
 
