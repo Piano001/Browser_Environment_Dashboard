@@ -1,11 +1,4 @@
-<!--
-Karl Laurence C. Piano
-README: 
-This is a self-contained Browser Environment Dashboard using JavaScript browser objects.
-It displays profile info, browser info, page and screen data, and navigation controls.
-It also dynamically changes the background based on screen size.
--->
-
+<!-- Karl Laurence C. Piano - Responsive Browser Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,21 +40,19 @@ It also dynamically changes the background based on screen size.
       padding: 6px 12px;
     }
 
-   
+  
     @media (max-width: 599px) {
       body {
         background-color: lightblue;
       }
     }
 
-   
     @media (min-width: 600px) and (max-width: 991px) {
       body {
         background-color: lightgreen;
       }
     }
 
-    
     @media (min-width: 992px) {
       body {
         background-color: orange;
@@ -71,7 +62,6 @@ It also dynamically changes the background based on screen size.
 </head>
 <body>
 
-  <!-- Part 0: Profile Info -->
   <header>
     <h1>Student Profile</h1>
     <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
@@ -84,13 +74,11 @@ It also dynamically changes the background based on screen size.
     <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
   </header>
 
-  <!-- Part A: Browser Information -->
   <section class="info">
     <h2>Browser Information</h2>
     <p id="browserInfo"></p>
   </section>
 
-  <!-- Part B: Page Info -->
   <section class="info">
     <h2>Page Information</h2>
     <p><strong>URL:</strong> <span id="url"></span></p>
@@ -99,7 +87,6 @@ It also dynamically changes the background based on screen size.
     <button onclick="changeTitle()">Change Page Title</button>
   </section>
 
-  <!-- Part C: Navigation -->
   <section class="info">
     <h2>Navigation Controls</h2>
     <button onclick="location.reload()">Reload Page</button>
@@ -109,7 +96,7 @@ It also dynamically changes the background based on screen size.
   </section>
 
   <script>
-    // Part A: Browser Info
+    // Browser Info
     const browserInfo = `
       <strong>Browser Name:</strong> ${navigator.appName}<br>
       <strong>Browser Version:</strong> ${navigator.appVersion}<br>
@@ -121,7 +108,7 @@ It also dynamically changes the background based on screen size.
     `;
     document.getElementById('browserInfo').innerHTML = browserInfo;
 
-    // Part B: Page Info
+    // Page Info
     document.getElementById('url').textContent = window.location.href;
     document.getElementById('hostname').textContent = window.location.hostname;
     document.getElementById('titleDisplay').textContent = document.title;
@@ -134,25 +121,9 @@ It also dynamically changes the background based on screen size.
       }
     }
 
-    // Part C: Navigation
     function redirect() {
       window.location.href = "https://www.example.com";
     }
-
-    // Part D: JavaScript-based dynamic styling (optional fallback or for added control)
-    function updateBackgroundColor() {
-      const width = window.innerWidth;
-      if (width < 600) {
-        document.body.style.backgroundColor = 'lightblue';
-      } else if (width < 992) {
-        document.body.style.backgroundColor = 'lightgreen';
-      } else {
-        document.body.style.backgroundColor = 'orange';
-      }
-    }
-
-    window.addEventListener('resize', updateBackgroundColor);
-    window.addEventListener('load', updateBackgroundColor);
   </script>
 
 </body>
