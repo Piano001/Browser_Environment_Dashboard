@@ -1,0 +1,138 @@
+<!--
+Karl Laurence C. Piano
+README: 
+This is a self-contained Browser Environment Dashboard using JavaScript browser objects.
+It displays profile info, browser info, page and screen data, and navigation controls.
+It also dynamically changes the background based on screen size.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Build a Browser Information & Control Panel using JaavaScript Browser Objects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      transition: background-color 0.3s;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    section {
+      margin-bottom: 20px;
+    }
+
+    .info {
+      background: #f2f2f2;
+      padding: 15px;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-right: 10px;
+      margin-top: 10px;
+      padding: 6px 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Part 0: Profile Info -->
+  <header>
+    <h1>Student Profile</h1>
+        <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
+        <p><strong>Sex:</strong> Male</p>
+        <p><strong>Address:</strong> Barangay 1 mabini Garchitorena, Cam. Sur</p>
+        <p><strong>Course, Year, Section:</strong> BSIT 2B</p>
+        <p><strong>Name of School:</strong> Partido State University</p>
+        <p><strong>Semester & Academic Year:</strong> 2nd Sem, AY 2024-2025</p>
+        <p><strong>Subject Code & Title:</strong> PF2 - event Driven programming</p>
+        <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
+  </header>
+
+  <!-- Part A: Browser Information -->
+  <section class="info">
+    <h2>Browser Information</h2>
+    <p id="browserInfo"></p>
+  </section>
+
+  <!-- Part B: Page Info -->
+  <section class="info">
+    <h2>Page Information</h2>
+    <p><strong>URL:</strong> <span id="url"></span></p>
+    <p><strong>Hostname:</strong> <span id="hostname"></span></p>
+    <p><strong>Page Title:</strong> <span id="titleDisplay"></span></p>
+    <button onclick="changeTitle()">Change Page Title</button>
+  </section>
+
+  <!-- Part C: Navigation -->
+  <section class="info">
+    <h2>Navigation Controls</h2>
+    <button onclick="location.reload()">Reload Page</button>
+    <button onclick="redirect()">Go to Example.com</button>
+    <button onclick="history.forward()">Go Back</button>
+    <button onclick="history.forward()">Go Forward</button>
+  </section>
+
+  <script>
+    // Part A: Browser Info
+    const browserInfo = `
+      <strong>Browser Name:</strong> ${navigator.appName}<br>
+      <strong>Browser Version:</strong> ${navigator.appVersion}<br>
+      <strong>Platform:</strong> ${navigator.platform}<br>
+      <strong>Java Enabled:</strong> ${navigator.javaEnabled()}<br>
+      <strong>Screen Resolution:</strong> ${screen.width} x ${screen.height}<br>
+      <strong>Available Screen Size:</strong> ${screen.availWidth} x ${screen.availHeight}<br>
+      <strong>Color Depth:</strong> ${screen.colorDepth}
+    `;
+    document.getElementById('browserInfo').innerHTML = browserInfo;
+
+    // Part B: Page Info
+    document.getElementById('url').textContent = window.location.href;
+    document.getElementById('hostname').textContent = window.location.hostname;
+    document.getElementById('titleDisplay').textContent = document.title;
+
+    function changeTitle() {
+      const newTitle = prompt("Enter new title:");
+      if (newTitle) {
+        document.title = newTitle;
+        document.getElementById('titleDisplay').textContent = newTitle;
+      }
+    }
+
+    // Part C: Navigation
+    function redirect() {
+      window.location.href = "https://www.example.com";
+    }
+
+    // Part D: Dynamic Styling
+    function updateBackgroundColor() {
+      const width = window.innerWidth;
+      if (width < 600) {
+        document.body.style.backgroundColor = 'lightblue';
+      } else if (width < 992) {
+        document.body.style.backgroundColor = 'lightgreen'; 
+      } else {
+        document.body.style.backgroundColor = 'orange'; 
+      }
+    }
+
+    window.addEventListener('resize', updateBackgroundColor);
+    window.addEventListener('load', updateBackgroundColor);
+  </script>
+
+</body>
+</html>
