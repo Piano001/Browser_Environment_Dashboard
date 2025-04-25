@@ -1,10 +1,13 @@
+const words = [
+  "apple", "banana", "grape", "orange", "peach", "kiwi", "mango", "watermelon",
+  "strawberry", "blueberry", "jackfruit", "pineapple", "papaya", "pomegranate",
+  "lemon", "cherry", "papaya", "avocado"
+];
 
-const words = ["apple", "banana", "grape", "orange", "peach", "kiwi", "mango", "watermelon", "strawberry", "blueberry", "jackfruit", "pineapple",
-    "papaya", "pomegranate", "lemon", "cherry","papaya", "avocado" ];
 let secretWord = words[Math.floor(Math.random() * words.length)];
 let attempts = 5;
 
-console.log("Secret word (for testing):", secretWord); 
+console.log("Secret word (for testing):", secretWord);
 
 function checkGuess() {
   const inputElement = document.getElementById("guessInput");
@@ -25,12 +28,9 @@ function checkGuess() {
     if (attempts > 0) {
       updateMessage(`❌ Incorrect guess. You have ${attempts} attempts left. Try again!`, "neutral");
     } else {
-      updateMessage(`💀 Game over! The secret word was '${secretWord}'.`, "You Lose");
+      updateMessage(`💀 Game over! The secret word was '${secretWord}'.`, "lose");
       endGame(false);
-      document.body.style.backgroundColor = "#ff4c4c"; 
-
-    
-
+      document.body.style.backgroundColor = "#ff4c4c";
     }
   }
 
@@ -47,7 +47,6 @@ function updateMessage(msg, status) {
     document.body.classList.add("win");
   } else if (status === "lose") {
     document.body.classList.add("lose");
-    
   }
 }
 
@@ -61,7 +60,7 @@ function restartGame() {
   secretWord = words[Math.floor(Math.random() * words.length)];
   attempts = 5;
 
-  console.log("Secret word (for testing):", secretWord); 
+  console.log("Secret word (for testing):", secretWord);
 
   document.getElementById("guessInput").disabled = false;
   document.querySelector("button").disabled = false;
@@ -72,9 +71,12 @@ function restartGame() {
   document.body.style.backgroundColor = "#add8e6";
 }
 
-
+// ✅ Make pressing Enter trigger checkGuess()
 document.getElementById("guessInput").addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     checkGuess();
   }
 });
+
+// ✅ Make clicking the Submit button trigger checkGuess()
+document.getElementById("submitBtn").addEventListener("click", checkGuess);
