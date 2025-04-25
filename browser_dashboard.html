@@ -1,4 +1,4 @@
-<!-- Karl Laurence C. Piano - Responsive Browser Dashboard -->
+<!-- Karl Laurence C. Piano - Adaptive Browser Dashboard -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,22 +40,37 @@
       padding: 6px 12px;
     }
 
-  
+   
     @media (max-width: 599px) {
       body {
         background-color: lightblue;
+        font-size: 14px;
       }
     }
 
     @media (min-width: 600px) and (max-width: 991px) {
       body {
         background-color: lightgreen;
+        font-size: 16px;
       }
     }
 
+ 
     @media (min-width: 992px) {
       body {
         background-color: orange;
+        font-size: 18px;
+      }
+    }
+
+  
+    .hide-on-mobile {
+      display: none;
+    }
+
+    @media (min-width: 600px) {
+      .hide-on-mobile {
+        display: inline-block;
       }
     }
   </style>
@@ -72,6 +87,7 @@
     <p><strong>Semester & Academic Year:</strong> 2nd Sem, AY 2024-2025</p>
     <p><strong>Subject Code & Title:</strong> PF2 - Event Driven Programming</p>
     <p><strong>Instructor:</strong> Prof. Arjay Abio</p>
+    <p><strong>Detected Device:</strong> <span id="deviceType"></span></p>
   </header>
 
   <section class="info">
@@ -89,26 +105,34 @@
 
   <section class="info">
     <h2>Navigation Controls</h2>
-    <button onclick="location.reload()">Reload Page</button>
-    <button onclick="redirect()">Go to Example.com</button>
-    <button onclick="history.back()">Go Back</button>
-    <button onclick="history.forward()">Go Forward</button>
+    <button onclick="location.reload()">Reload</button>
+    <button onclick="redirect()">Visit Example</button>
+    <button class="hide-on-mobile" onclick="history.back()">Back</button>
+    <button class="hide-on-mobile" onclick="history.forward()">Forward</button>
   </section>
 
   <script>
-    // Browser Info
+    // A. Detect Device Type
+    function getDeviceType() {
+      const width = window.innerWidth;
+      if (width < 600) return 'Mobile';
+      else if (width < 992) return 'Tablet';
+      else return 'Desktop';
+    }
+    document.getElementById('deviceType').textContent = getDeviceType();
+
+    // B. Browser Info
     const browserInfo = `
-      <strong>Browser Name:</strong> ${navigator.appName}<br>
-      <strong>Browser Version:</strong> ${navigator.appVersion}<br>
+      <strong>User Agent:</strong> ${navigator.userAgent}<br>
       <strong>Platform:</strong> ${navigator.platform}<br>
       <strong>Java Enabled:</strong> ${navigator.javaEnabled()}<br>
-      <strong>Screen Resolution:</strong> ${screen.width} x ${screen.height}<br>
-      <strong>Available Screen Size:</strong> ${screen.availWidth} x ${screen.availHeight}<br>
+      <strong>Screen:</strong> ${screen.width} x ${screen.height}<br>
+      <strong>Available:</strong> ${screen.availWidth} x ${screen.availHeight}<br>
       <strong>Color Depth:</strong> ${screen.colorDepth}
     `;
     document.getElementById('browserInfo').innerHTML = browserInfo;
 
-    // Page Info
+    // C. Page Info
     document.getElementById('url').textContent = window.location.href;
     document.getElementById('hostname').textContent = window.location.hostname;
     document.getElementById('titleDisplay').textContent = document.title;
@@ -116,15 +140,4 @@
     function changeTitle() {
       const newTitle = prompt("Enter new title:");
       if (newTitle) {
-        document.title = newTitle;
-        document.getElementById('titleDisplay').textContent = newTitle;
-      }
-    }
-
-    function redirect() {
-      window.location.href = "https://www.example.com";
-    }
-  </script>
-
-</body>
-</html>
+        document
