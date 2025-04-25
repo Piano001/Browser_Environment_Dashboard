@@ -1,4 +1,4 @@
-<!-- Karl Laurence C. Piano - Adaptive Browser Dashboard -->
+<!-- Karl Laurence C. Piano - Adaptive Browser Dashboard with Responsive Buttons -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,33 +37,60 @@
     button {
       margin-right: 10px;
       margin-top: 10px;
-      padding: 6px 12px;
+      padding: 10px 16px;
+      border: none;
+      background-color: #444;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
     }
 
-   
+    button:hover {
+      background-color: #222;
+    }
+
+    
     @media (max-width: 599px) {
       body {
         background-color: lightblue;
         font-size: 14px;
       }
+
+      button {
+        font-size: 1.1rem;
+        padding: 14px 20px;
+        width: 100%;
+      }
     }
+
 
     @media (min-width: 600px) and (max-width: 991px) {
       body {
         background-color: lightgreen;
         font-size: 16px;
       }
+
+      button {
+        font-size: 1rem;
+        padding: 12px 18px;
+      }
     }
 
- 
+  
     @media (min-width: 992px) {
       body {
         background-color: orange;
         font-size: 18px;
       }
+
+      button {
+        font-size: 1rem;
+        padding: 10px 16px;
+      }
     }
 
-  
+    
     .hide-on-mobile {
       display: none;
     }
@@ -105,23 +132,24 @@
 
   <section class="info">
     <h2>Navigation Controls</h2>
-    <button onclick="location.reload()">Reload</button>
-    <button onclick="redirect()">Visit Example</button>
-    <button class="hide-on-mobile" onclick="history.back()">Back</button>
-    <button class="hide-on-mobile" onclick="history.forward()">Forward</button>
+    <button onclick="location.reload()">🔄 Reload</button>
+    <button onclick="redirect()">🌐 Visit Example</button>
+    <button class="hide-on-mobile" onclick="history.back()">⬅️ Back</button>
+    <button class="hide-on-mobile" onclick="history.forward()">➡️ Forward</button>
   </section>
 
   <script>
-    // A. Detect Device Type
+    // Detect Device Type
     function getDeviceType() {
       const width = window.innerWidth;
       if (width < 600) return 'Mobile';
       else if (width < 992) return 'Tablet';
       else return 'Desktop';
     }
+
     document.getElementById('deviceType').textContent = getDeviceType();
 
-    // B. Browser Info
+    // Browser Info
     const browserInfo = `
       <strong>User Agent:</strong> ${navigator.userAgent}<br>
       <strong>Platform:</strong> ${navigator.platform}<br>
@@ -132,7 +160,7 @@
     `;
     document.getElementById('browserInfo').innerHTML = browserInfo;
 
-    // C. Page Info
+    // Page Info
     document.getElementById('url').textContent = window.location.href;
     document.getElementById('hostname').textContent = window.location.hostname;
     document.getElementById('titleDisplay').textContent = document.title;
@@ -140,4 +168,18 @@
     function changeTitle() {
       const newTitle = prompt("Enter new title:");
       if (newTitle) {
-        document
+        document.title = newTitle;
+        document.getElementById('titleDisplay').textContent = newTitle;
+      }
+    }
+
+    function redirect() {
+      const confirmRedirect = confirm("Do you want to open example.com?");
+      if (confirmRedirect) {
+        window.location.href = "https://www.example.com";
+      }
+    }
+  </script>
+
+</body>
+</html>
