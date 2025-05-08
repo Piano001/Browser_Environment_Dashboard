@@ -1,0 +1,208 @@
+<!--karl Laurence C. Piano-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive DOM Traversal and Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    header {
+      background-color: #e0f7fa;
+      padding: 15px;
+      border: 2px solid #00796b;
+      margin-bottom: 20px;
+    }
+
+    .grandparent, .parent, .child {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #000;
+      cursor: pointer;
+    }
+
+    .grandparent {
+      background-color: #ffe082;
+    }
+
+    .parent {
+      background-color: #aed581;
+      margin-left: 20px;
+    }
+
+    .child {
+      background-color: #90caf9;
+      margin-left: 40px;
+    }
+
+    .highlight {
+      outline: 3px solid red;
+    }
+
+    .buttons {
+      margin-bottom: 20px;
+    }
+    .buttons button {
+      margin: 5px;
+      padding: 8px 15px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h2>Profile Information</h2>
+    <p><strong>Complete Name:</strong> Karl Laurence C. Piano</p>
+    <p><strong>Sex:</strong> Male</p>
+    <p><strong>Address:</strong> Barangay 1  Mabini Garchitorena, Cam. Sur</p>
+    <p><strong>Course, Year, Section:</strong> BSIT 2B</p>
+    <p><strong>Name of School:</strong> Partido State University</p>
+    <p><strong>Semester and Academic Year:</strong> 2st Semester, AY 2024-2025</p>
+    <p><strong>Subject Code and Title:</strong> PF2 - Event Driven Programming</p>
+    <p><strong>Subject Instructor:</strong> Prof. Arjay Abio</p>
+    <p id="deviceInfo"><strong>Detected Device:</strong> <span id="deviceType"></span></p>
+
+  </header>
+
+  <div class="buttons">
+    <button onclick="traverseDown()">Traverse Down</button>
+    <button onclick="traverseUp()">Traverse Up</button>
+    <button onclick="traverseNext()">Next Sibling</button>
+    <button onclick="traversePrev()">Previous Sibling</button>
+    <button onclick="addChild()">Add Child</button>
+    <button onclick="deleteNode()">Delete Current</button>
+  </div>
+
+  <div class="grandparent" id="grandparent">
+    Grandparent
+    <div class="parent">
+      Parent 1
+      <div class="child">Child 1.1</div>
+      <div class="child">Child 1.2</div>
+    </div>
+    <div class="parent">
+      Parent 2
+      <div class="child">Child 2.1</div>
+      <div class="child">Child 2.2</div>
+    </div>
+  </div>
+
+  <script>
+ function detectDevice() {
+      const width = window.innerWidth;
+      if (width < 600) return 'Mobile';
+      else if (width < 992) return 'Tablet';
+      else return 'Desktop';
+    }
+
+    document.getElementById('deviceType').textContent = detectDevice();
+
+    let selectedNode = null;
+
+    // Add click event listener to every node
+    document.querySelectorAll('.grandparent, .parent, .child').forEach(node => {
+      node.addEventListener('click', function (event) {
+        event.stopPropagation();
+        selectNode(this);
+      });
+    });
+
+    // Function to highlight selected node
+    function selectNode(node) {
+      if (selectedNode) {
+        selectedNode.classList.remove('highlight');
+      }
+      selectedNode = node;
+      selectedNode.classList.add('highlight');
+    }
+
+    function traverseDown() {
+      if (selectedNode && selectedNode.children.length > 0) {
+        selectNode(selectedNode.children[0]);
+      } else {
+        alert("No child to traverse down to.");
+      }
+    }
+
+    function traverseUp() {
+      if (selectedNode && selectedNode.parentElement && selectedNode.parentElement.classList.contains('grandparent') || selectedNode.parentElement.classList.contains('parent')) {
+        selectNode(selectedNode.parentElement);
+      } else {
+        alert("No parent to traverse up to.");
+      }
+    }
+
+    function traverseNext() {
+      let next = selectedNode?.nextElementSibling;
+      if (next && (next.classList.contains('parent') || next.classList.contains('child'))) {
+        selectNode(next);
+      } else {
+        alert("No next sibling.");
+      }
+    }
+
+    function traversePrev() {
+      let prev = selectedNode?.previousElementSibling;
+      if (prev && (prev.classList.contains('parent') || prev.classList.contains('child'))) {
+        selectNode(prev);
+      } else {
+        alert("No previous sibling.");
+      }
+    }
+
+    function addChild() {
+      if (!selectedNode) return alert("Select a node first.");
+      if (selectedNode.classList.contains('grandparent')) {
+        // Add a new parent with two children
+        const parent = document.createElement('div');
+        parent.className = 'parent';
+        parent.textContent = 'New Parent';
+        const child1 = document.createElement('div');
+        child1.className = 'child';
+        child1.textContent = 'Child A';
+        const child2 = document.createElement('div');
+        child2.className = 'child';
+        child2.textContent = 'Child B';
+        parent.appendChild(child1);
+        parent.appendChild(child2);
+        selectedNode.appendChild(parent);
+        addNodeClickListener(parent);
+        addNodeClickListener(child1);
+        addNodeClickListener(child2);
+      } else if (selectedNode.classList.contains('parent')) {
+        const child = document.createElement('div');
+        child.className = 'child';
+        child.textContent = 'New Child';
+        selectedNode.appendChild(child);
+        addNodeClickListener(child);
+      } else {
+        alert("Cannot add a child to a child node.");
+      }
+    }
+
+    function deleteNode() {
+      if (!selectedNode) return alert("Select a node first.");
+      if (selectedNode.id === 'grandparent') {
+        alert("Cannot delete the grandparent node.");
+        return;
+      }
+      const toRemove = selectedNode;
+      traverseUp(); // move selection up before removing
+      toRemove.remove();
+    }
+
+    // Add click event listener to newly created nodes
+    function addNodeClickListener(node) {
+      node.addEventListener('click', function (event) {
+        event.stopPropagation();
+        selectNode(this);
+      });
+      
+    }
+  </script>
+</body>
+</html>
